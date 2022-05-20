@@ -19,7 +19,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 function Header() {
   const { data: session } = useSession()
   return (
-    <div className="sticky top-0 z-50 flex items-center py-2 px-4 shadow-sm">
+    <div className="sticky top-0 z-50 flex items-center py-2 px-4 shadow-sm bg-white">
       <div className="relative h-10 w-20 flex-shrink-0">
         <Image src="/images/logo.png" layout="fill" objectFit="contain" priority/>
       </div>
