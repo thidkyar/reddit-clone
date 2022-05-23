@@ -121,7 +121,10 @@ type Query {
   getPostList: [Post]
     @dbquery(
       type: "postgresql"
-      table: "post"
+      query: """
+      select * from "post"
+      order by "created_at" desc
+      """
       configuration: "postgresql_config"
     )
   getSubredditList: [Subreddit]

@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { ADD_POST, ADD_SUBREDDIT } from '../graphql/mutations'
 import client from '../apollo-client'
-import { GET_SUBREDDIT_BY_TOPIC } from '../graphql/queries'
+import { GET_ALL_POSTS, GET_SUBREDDIT_BY_TOPIC } from '../graphql/queries'
 import toast from 'react-hot-toast'
 
 type FormData = {
@@ -18,7 +18,9 @@ type FormData = {
 
 function PostBox() {
   const { data: session } = useSession()
-  const [addPost] = useMutation(ADD_POST)
+  const [addPost] = useMutation(ADD_POST, {
+    refetchQueries: [GET_ALL_POSTS, 'getPostList'],
+  })
   const [addSubreddit] = useMutation(ADD_SUBREDDIT)
   const [imageBoxOpen, setImageBoxOpen] = useState<boolean>(false)
   const {
@@ -95,17 +97,17 @@ function PostBox() {
       }
 
       //AFTER POST IS added
-      setValue('postBody', "")
-      setValue('postImage', "")
-      setValue('postTitle', "")
-      setValue('subreddit', "")
+      setValue('postBody', '')
+      setValue('postImage', '')
+      setValue('postTitle', '')
+      setValue('subreddit', '')
 
       toast.success(`New Post Created!`, {
-        id: notification
+        id: notification,
       })
     } catch (error) {
       toast.error(`Whoops something went wrong!`, {
-        id: notification
+        id: notification,
       })
     }
   })
