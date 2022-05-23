@@ -127,7 +127,6 @@ type Query {
       """
       configuration: "postgresql_config"
     )
-
   getPostListByTopic(topic: String!): [Post]
     @dbquery(
       type: "postgresql"
@@ -136,6 +135,15 @@ type Query {
       join "subreddit" on "subreddit"."id" = "post"."subreddit_id"
       where "subreddit"."topic" = $1
       order by "post"."created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
+  getPostListByPostId(post_id: ID!): [Post]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "post"
+      where "id" = $1
       """
       configuration: "postgresql_config"
     )
@@ -175,6 +183,14 @@ type Mutation {
     @dbquery(
       type: "postgresql"
       table: "post"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+
+  insertComment(post_id: ID!, username: String!, comment: String!): Comment
+    @dbquery(
+      type: "postgresql"
+      table: "comment"
       dml: INSERT
       configuration: "postgresql_config"
     )

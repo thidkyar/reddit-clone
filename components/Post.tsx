@@ -12,11 +12,18 @@ import Avatar from './Avatar'
 import Timeago from 'react-timeago'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Jelly } from '@uiball/loaders'
 
 type Props = {
   post: Post
 }
 function Post({ post }: Props) {
+  if (!post)
+    return (
+      <div className="flex w-full items-center justify-center p-10 text-xl">
+        <Jelly size={50} color="#FF4501" />
+      </div>
+    )
   return (
     <Link href={`/r/${post.subreddits[0]?.topic}/post/${post.id}`}>
       <div className="flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400">
@@ -36,8 +43,8 @@ function Post({ post }: Props) {
                 <span className="font-bold text-black hover:text-blue-400 hover:underline">
                   r/{post.subreddits[0]?.topic}
                 </span>
-              </Link>
-              {' '}• Posted by u/
+              </Link>{' '}
+              • Posted by u/
               {post.username} <Timeago date={post.created_at} />
             </p>
           </div>
