@@ -25,8 +25,8 @@ function Subreddit() {
       </div>
 
       <div className="mx-auto max-w-5xl mt-5 pb-10">
-          <PostBox />
-          <Feed />
+          <PostBox subreddit={topic as string}/>
+          <Feed topic={topic as string} />
       </div>
     </div>
   )
