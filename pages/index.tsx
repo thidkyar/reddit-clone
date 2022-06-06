@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         {/* feed */}
         <Feed />
 
-        <div className="sticky top-36 mx-5 mt-5 hidden h-fit min-w-[300px] rounded-md border-gray-300 bg-white lg:inline">
+        <div className="sticky top-36 ml-5 mt-5 hidden h-fit min-w-[300px] rounded-md border-gray-300 bg-white lg:inline">
           <p className="text-md mb-1 p-4 pb-3 font-bold">Top Communities</p>
 
           <div>
