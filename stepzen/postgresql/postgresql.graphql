@@ -41,7 +41,7 @@ type Vote {
   created_at: DateTime
   id: ID!
   post_id: ID
-  upvote: Int
+  upvote: Boolean
   username: String
 }
 
@@ -66,7 +66,7 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: """
-      select * from "post" where "id" = $1
+      select * from "vote" where "post_id" = $1
       order by "created_at" desc
       """
       configuration: "postgresql_config"
@@ -191,6 +191,14 @@ type Mutation {
     @dbquery(
       type: "postgresql"
       table: "comment"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+
+  insertVote(post_id: ID!, username: String!, upvote: Boolean!): Vote
+    @dbquery(
+      type: "postgresql"
+      table: "vote"
       dml: INSERT
       configuration: "postgresql_config"
     )
